@@ -1,7 +1,6 @@
 package gradle.cucumber;
 
-public class Muro {
-    public Muro(){
-
-    }
+public interface Muro {
+    public boolean esDeMelamina();
+    public boolean esDeAcero();
 }
