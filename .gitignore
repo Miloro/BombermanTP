@@ -1,0 +1,10 @@
+build/
+out/
+.gradle/
+.idea/
+*.iml
+*.ipr
+*.iws
+target/
+build/
+*.sw?
