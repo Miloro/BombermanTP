@@ -15,9 +15,9 @@ tEjercitar la escritura de código en ambientes colaborativos utilizando una met
 
 Nro | Nombre             | Legajo | Mail
 ----|--------------------|--------|------
-1   |Analia  Redonda     |        |A.redonda89@gmail.com
+1   |Analia Redonda      | 28609  |a.redonda89@gmail.com
 2   |Nadia vanina Trotvil|        |vaninanadia@gmail.com 
-3   |Miguel Miloro       |33474   |miloromiguel@gmail.com
+3   |Miguel Miloro       | 33474  |miloromiguel@gmail.com
 4   |                    |        |
     
 ### Entrega
