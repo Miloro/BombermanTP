@@ -11,6 +11,12 @@ public class Bomberman {
         this.estaVivo = true;
     }
 
+    public Bomberman(Integer posicionX, Integer posicionY){
+        this.posicionX=posicionX;
+        this.posicionY=posicionY;
+        this.estaVivo= true;
+    }
+
     public Integer getPosicionX() {
         return posicionX;
     }
@@ -57,5 +63,9 @@ public class Bomberman {
 
     public boolean estaMuerto() {
         return !this.estaVivo;
+    }
+
+    public void sueltaUnaBomba(Tablero tablero) {
+        new Bomba().estallarEn(tablero, this.posicionX, this.posicionY);
     }
 }
