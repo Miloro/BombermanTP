@@ -20,4 +20,10 @@ public class Celda {
     public void setearEnemigo() { this.enemigo = new Enemigo(); }
 
     public boolean tieneEnemigo() {return this.enemigo != null; }
+
+    public void quitarMuroDeMelamina() {
+        if(this.muro != null &&this.muro.esDeMelamina()){
+            this.muro=null;
+        }
+    }
 }

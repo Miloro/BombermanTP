@@ -1,7 +1,13 @@
 package gradle.cucumber;
 
 public class Muro {
-    public Muro(){
+    private boolean esDeMelamina;
 
+    public Muro(){
+        this.esDeMelamina=true;
+    }
+
+    public boolean esDeMelamina() {
+        return esDeMelamina;
     }
 }
