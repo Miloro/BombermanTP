@@ -23,7 +23,7 @@ public class Tablero {
         return filaCeldas;
     }
 
-    public void setearMuroEn(Integer posicionX, Integer posicionY) {
+    public void setearMuroEnCelda(Integer posicionX, Integer posicionY) {
         this.dameLaCelda(posicionX,posicionY).setearMuro();
     }
 
@@ -33,5 +33,13 @@ public class Tablero {
 
     public boolean celdaALaDerechaEsCeldaVacia(Integer posicionX, Integer posicionY) {
         return !this.dameLaCelda(posicionX+1,posicionY).tieneMuro();
+    }
+
+    public void setearEnemigoEnCelda(Integer posicionX, Integer posicionY) {
+        this.dameLaCelda(posicionX,posicionY).setearEnemigo();
+    }
+
+    public boolean celdaALaDerechaEsCeldaConEnemigo(Integer posicionX, Integer posicionY) {
+        return this.dameLaCelda(posicionX+1,posicionY).tieneEnemigo();
     }
 }

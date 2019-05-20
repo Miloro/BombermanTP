@@ -3,11 +3,12 @@ package gradle.cucumber;
 public class Bomberman {
     private Integer posicionX;
     private Integer posicionY;
+    private boolean estaVivo;
 
     public Bomberman(){
         this.posicionX = 0;
         this.posicionY = 0;
-
+        this.estaVivo = true;
     }
 
     public Integer getPosicionX() {
@@ -20,7 +21,7 @@ public class Bomberman {
 
     public void moverUnaCeldaALaDerecha(Tablero tablero) {
         if(this.puedoMovermeALaDerecha(tablero)){
-            this.movermeUnaCeldaALaDerecha();
+            this.movermeUnaCeldaALaDerecha(tablero);
         }
     }
 
@@ -30,8 +31,20 @@ public class Bomberman {
         }
     }
 
-    private void movermeUnaCeldaALaDerecha() {
-        this.posicionX++;
+    private void movermeUnaCeldaALaDerecha(){
+        this.posicionX ++;
+    }
+
+    private void movermeUnaCeldaALaDerecha(Tablero tablero) {
+        if(!tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
+            this.posicionX++;
+        } else {
+            this.marcarComoMuerto();
+        }
+    }
+
+    private void marcarComoMuerto() {
+        this.estaVivo = false;
     }
 
     private boolean puedoMovermeALaDerecha(Tablero tablero){
@@ -42,4 +55,7 @@ public class Bomberman {
         return true;
     }
 
+    public boolean estaMuerto() {
+        return !this.estaVivo;
+    }
 }

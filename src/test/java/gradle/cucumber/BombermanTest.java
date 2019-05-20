@@ -17,7 +17,13 @@ public class BombermanTest {
     @Given("^Un muro se encuentra en la posicion uno cero")
     public void seCreaUnMuro() throws Throwable {
         tablero = new Tablero(2,2);
-        tablero.setearMuroEn(1,0);
+        tablero.setearMuroEnCelda(1,0);
+    }
+
+    @Given("^Un enemigo se encuentra en la posicion uno cero$")
+    public void unEnemigoSeEncuentraEnLaCeldaALaDerecha() {
+        tablero= new Tablero( 2,2);
+        tablero.setearEnemigoEnCelda(1,0);
     }
 
     @When("^Bomberman se mueve una celda a la derecha")
@@ -43,4 +49,8 @@ public class BombermanTest {
     }
 
 
+    @Then("^Bomberman esta muerto$")
+    public void bombermanEstaMuerto() {
+        assertThat(bomberman.estaMuerto()).isEqualTo(true);
+    }
 }
