@@ -1,42 +1,45 @@
 package gradle.cucumber;
 
 public class Bomberman {
-    private Celda celda;
+    private Integer posicionX;
+    private Integer posicionY;
 
-    public Bomberman(Celda celda){
-        celda = celda;
+    public Bomberman(){
+        this.posicionX = 0;
+        this.posicionY = 0;
+
     }
 
-    public Celda celda() {
-        return celda;
+    public Integer getPosicionX() {
+        return posicionX;
     }
 
-    public void setCelda(Celda celda) {
-        this.celda = celda;
+    public Integer getPosicionY() {
+        return posicionY;
     }
 
-    public Integer posicionX() {
-        return this.celda.posicionX();
+    public void moverUnaCeldaALaDerecha(Tablero tablero) {
+        if(this.puedoMovermeALaDerecha(tablero)){
+            this.movermeUnaCeldaALaDerecha();
+        }
     }
 
-    public Integer posicionY() {
-        return this.celda.posicionY();
+    public void moverUnaCeldaALaDerecha() {
+        if(this.puedoMovermeALaDerecha()){
+            this.movermeUnaCeldaALaDerecha();
+        }
     }
 
-    public void moverDerecha() {
-        celda = this.celda.celdaDeLaDerecha();
+    private void movermeUnaCeldaALaDerecha() {
+        this.posicionX++;
     }
 
-    public void moverIzquierda() {
-        celda = this.celda.celdaDeLaIzquierda();
+    private boolean puedoMovermeALaDerecha(Tablero tablero){
+        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY);
     }
 
-    public void moverArriba() {
-        celda = this.celda.celdaDeArriba();
-    }
-
-    public void moverAbajo() {
-        celda = this.celda.celdaDeAbajo();
+    private boolean puedoMovermeALaDerecha(){
+        return true;
     }
 
 }

@@ -6,63 +6,41 @@ import cucumber.api.java.en.Then;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BombermanTest {
+    private Tablero tablero;
     private Bomberman bomberman;
-    private Celda celda;
 
-    @Given("^Se crea un bomberman en la posicion cero y cero")
+    @Given("^Bomberman se crea en la posicion cero cero")
     public void seCreaUnBomberman() throws Throwable {
-        celda = new Celda(0,0);
-        bomberman = new Bomberman(celda);
-        bomberman.setCelda(celda);
+        bomberman = new Bomberman();
     }
 
-    @When("^Bomberman se mueve a la derecha")
+    @Given("^Un muro se encuentra en la posicion uno cero")
+    public void seCreaUnMuro() throws Throwable {
+        tablero = new Tablero(2,2);
+        tablero.setearMuroEn(1,0);
+    }
+
+    @When("^Bomberman se mueve una celda a la derecha")
     public void bombermanSeMueveALaDerecha() throws Throwable{
-        bomberman.moverDerecha();
+        bomberman.moverUnaCeldaALaDerecha();
     }
 
-    @Then("^Bomberman se encuentra en la celda uno y cero")
+    @When("^Bomberman se mueve en el tablero una celda a la derecha")
+    public void bombermanSeMueveALaDerechaEnElTablero() throws Throwable{
+        bomberman.moverUnaCeldaALaDerecha(tablero);
+    }
+
+    @Then("^Bomberman se debe encontrar en la posicion uno cero")
     public void bombermanSeEncuentraEnLaCeldaUnoYCero() throws  Throwable{
-        assertThat(bomberman.posicionX()).isEqualTo(1);
-        assertThat(bomberman.posicionY()).isEqualTo(0);
+        assertThat(bomberman.getPosicionX()).isEqualTo(1);
+        assertThat(bomberman.getPosicionY()).isEqualTo(0);
     }
 
-    @When("^Bomberman se mueve para arriba")
-    public void bombermanSeMueveParaArriba() throws Throwable{
-        bomberman.moverArriba();
-    }
-
-    @Then("^Bomberman se encuentra en la celda uno y uno")
-    public void bombermanSeEncuentraEnLaCeldaUnoYUno() throws  Throwable{
-        assertThat(bomberman.posicionX()).isEqualTo(1);
-        assertThat(bomberman.posicionY()).isEqualTo(1);
-    }
-
-    @When("^Bomberman se mueve para la izquierda")
-    public void bombermanSeMueveParaLaIzquierda() throws Throwable{
-        bomberman.moverIzquierda();
-    }
-
-    @Then("^Bomberman se encuentra en la celda cero y uno")
-    public void bombermanSeEncuentraEnLaCeldaCeroYUno() throws  Throwable{
-        assertThat(bomberman.posicionX()).isEqualTo(0);
-        assertThat(bomberman.posicionY()).isEqualTo(1);
-    }
-
-    @When("^Bomberman se mueve para abajo")
-    public void bombermanSeMueveParaAbajo() throws Throwable{
-        bomberman.moverAbajo();
-    }
-
-    @Then("^Bomberman se encuentra en la celda cero y cero")
+    @Then("^Bomberman se debe encontrar en la posicion cero cero")
     public void bombermanSeEncuentraEnLaCeldaCeroYCero() throws  Throwable{
-        assertThat(bomberman.posicionX()).isEqualTo(0);
-        assertThat(bomberman.posicionY()).isEqualTo(0);
+        assertThat(bomberman.getPosicionX()).isEqualTo(0);
+        assertThat(bomberman.getPosicionY()).isEqualTo(0);
     }
-
-
-
-
 
 
 }

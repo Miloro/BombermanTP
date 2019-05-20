@@ -1,9 +1,6 @@
 language: java
 sudo: true
 
-services:
-  -mysql
-
 before_build:
   -./gradlew assemble
   -./gradlew check
@@ -21,7 +18,6 @@ jdk:
 
 build:
   - ./gradlew cucumber
-  - ./gradlew junit
 
 notifications:
   email:
@@ -29,6 +25,6 @@ notifications:
       - a.redonda89@gmail.com
       - miloromiguel@gmail.com
       - nadiavanina@gmail.com
-    on_success: always # default: change
+    on_success: never # default: change
     on_failure: always # default: always
 
