@@ -26,4 +26,6 @@ public class Celda {
             this.muro=null;
         }
     }
+
+    public void quitarEnemigo() {this.enemigo=null;}
 }

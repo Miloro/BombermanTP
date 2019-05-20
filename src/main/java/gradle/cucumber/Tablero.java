@@ -1,8 +1,6 @@
 package gradle.cucumber;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Tablero {
     private HashMap<Integer,HashMap<Integer,Celda>> celdas;
@@ -48,55 +46,64 @@ public class Tablero {
     }
 
     // PRO: Quita muro en posicion de Cruz, como en el juego original.
-    public void quitarMuroDeMelaminaEnRadio(Integer radio,Integer posicionX, Integer posicionY) {
-        this.quitarMuroDeMelaminaAlNorteEnRadio(radio,posicionX, posicionY);
-        this.quitarMuroDeMelaminaAlSurEnRadio(radio,posicionX, posicionY);
-        this.quitarMuroDeMelaminaAlOesteEnRadio(radio,posicionX, posicionY);
-        this.quitarMuroDeMelaminaAlEsteEnRadio(radio,posicionX, posicionY);
+    public void quitarElementosEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+        this.quitarElementosXCeldasAlNorte(radio,posicionX, posicionY);
+        this.quitarElementosXCeldasAlSur(radio,posicionX, posicionY);
+        this.quitarElementosXCeldasAlOesteEnRadio(radio,posicionX, posicionY);
+        this.quitarElementosXCeldasAlEsteEnRadio(radio,posicionX, posicionY);
     }
 
-    private void quitarMuroDeMelaminaAlEsteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlEsteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
         Integer hasta= posicionX + radio;
 
         if( hasta > this.cantidadDeFilas-1) hasta = this.cantidadDeFilas - 1; // Me aseguro de no irme del tablero.
 
         for(int i=posicionX; i<=hasta; i++){
-            this.dameLaCelda(i,posicionY).quitarMuroDeMelamina();
+            this.quitarElementosDeLaCelda(i,posicionY);
         }
     }
 
-    private void quitarMuroDeMelaminaAlOesteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlOesteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
         Integer hasta= posicionX - radio;
 
         if( hasta < 0) hasta = 0; // Me aseguro de no irme del tablero.
 
         for(int i=posicionX; i>=hasta; i--){
-            this.dameLaCelda(i,posicionY).quitarMuroDeMelamina();
+            this.quitarElementosDeLaCelda(i,posicionY);
         }
     }
 
-    private void quitarMuroDeMelaminaAlSurEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlSur(Integer radio, Integer posicionX, Integer posicionY) {
         Integer hasta= posicionY + radio;
 
         if( hasta > this.cantidadDeFilas-1) hasta = this.cantidadDeFilas - 1; // Me aseguro de no irme del tablero.
 
         for(int i=posicionY; i<=hasta; i++){
-            this.dameLaCelda(posicionX,i).quitarMuroDeMelamina();
+            this.quitarElementosDeLaCelda(posicionX,i);
         }
     }
 
-    private void quitarMuroDeMelaminaAlNorteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlNorte(Integer radio, Integer posicionX, Integer posicionY) {
         Integer hasta= posicionY - radio;
 
         if( hasta < 0) hasta = 0; // Me aseguro de no irme del tablero.
 
         for(int i=posicionY; i>=hasta; i--){
-            this.dameLaCelda(posicionX,i).quitarMuroDeMelamina();
+            this.quitarElementosDeLaCelda(posicionX,i);
         }
+    }
+
+    private void quitarElementosDeLaCelda(Integer posicionX, Integer posicionY){
+        Celda celda= this.dameLaCelda(posicionX,posicionY);
+        celda.quitarMuroDeMelamina();
+        celda.quitarEnemigo();
     }
 
 
     public boolean tieneMuroEnCelda(int posicionX, int posicionY) {
         return this.dameLaCelda(posicionX,posicionY).tieneMuro();
+    }
+
+    public void quitarEnemigosEnRadio(int i, Integer posicionX, Integer posicionY) {
     }
 }

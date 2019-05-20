@@ -42,7 +42,11 @@ public class BombermanTest {
         this.tablero.setearMuroEnCelda(arg10,arg11);
         this.tablero.setearMuroEnCelda(arg12,arg13);
         this.tablero.setearMuroEnCelda(arg14,arg15);
+    }
 
+    @Given("^El tablero tiene un enemigo en \\((\\d+),(\\d+)\\)$")
+    public void elTableroTieneUnEnemigoEn(int positionX, int positionY) {
+        this.tablero.setearEnemigoEnCelda(positionX, positionY);
     }
 
     @When("^Bomberman se mueve una celda a la derecha")
@@ -94,4 +98,10 @@ public class BombermanTest {
         assertThat(tablero.tieneMuroEnCelda(arg4,arg5)).isEqualTo(true);
         assertThat(tablero.tieneMuroEnCelda(arg6,arg7)).isEqualTo(true);
     }
+
+    @Then("^El enemigo ya no se encuentra en la posicion \\((\\d+),(\\d+)\\)$")
+    public void elEnemigoYaNoSeEncuentraEnLaPosicion(int arg0, int arg1) {
+        assertThat(tablero.tieneMuroEnCelda(arg0,arg1)).isEqualTo(false);
+    }
+
 }
