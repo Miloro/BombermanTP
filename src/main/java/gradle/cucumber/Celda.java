@@ -1,36 +1,23 @@
 package gradle.cucumber;
 
 public class Celda {
-    private final Integer posicionX;
-    private final Integer posicionY;
+    private Muro muro;
+    private Enemigo enemigo;
 
-    public Celda(Integer x, Integer y){
-        posicionX = x;
-        posicionY = y;
+
+    public Celda(){
+        this.muro = null;
     }
 
-
-    public Integer posicionX() {
-        return posicionX;
+    public void setearMuro() {
+        this.muro = new Muro();
     }
 
-    public Integer posicionY() {
-        return posicionY;
+    public boolean tieneMuro(){
+        return this.muro != null;
     }
 
-    public Celda celdaDeLaDerecha() {
-        return new Celda(this.posicionX + 1,this.posicionY);
-    }
+    public void setearEnemigo() { this.enemigo = new Enemigo(); }
 
-    public Celda celdaDeArriba() {
-        return new Celda(this.posicionX ,this.posicionY + 1);
-    }
-
-    public Celda celdaDeLaIzquierda() {
-        return new Celda(this.posicionX - 1 ,this.posicionY);
-    }
-
-    public Celda celdaDeAbajo() {
-        return new Celda(this.posicionX, this.posicionY - 1);
-    }
+    public boolean tieneEnemigo() {return this.enemigo != null; }
 }

@@ -1,42 +1,61 @@
 package gradle.cucumber;
 
 public class Bomberman {
-    private Celda celda;
+    private Integer posicionX;
+    private Integer posicionY;
+    private boolean estaVivo;
 
-    public Bomberman(Celda celda){
-        celda = celda;
+    public Bomberman(){
+        this.posicionX = 0;
+        this.posicionY = 0;
+        this.estaVivo = true;
     }
 
-    public Celda celda() {
-        return celda;
+    public Integer getPosicionX() {
+        return posicionX;
     }
 
-    public void setCelda(Celda celda) {
-        this.celda = celda;
+    public Integer getPosicionY() {
+        return posicionY;
     }
 
-    public Integer posicionX() {
-        return this.celda.posicionX();
+    public void moverUnaCeldaALaDerecha(Tablero tablero) {
+        if(this.puedoMovermeALaDerecha(tablero)){
+            this.movermeUnaCeldaALaDerecha(tablero);
+        }
     }
 
-    public Integer posicionY() {
-        return this.celda.posicionY();
+    public void moverUnaCeldaALaDerecha() {
+        if(this.puedoMovermeALaDerecha()){
+            this.movermeUnaCeldaALaDerecha();
+        }
     }
 
-    public void moverDerecha() {
-        celda = this.celda.celdaDeLaDerecha();
+    private void movermeUnaCeldaALaDerecha(){
+        this.posicionX ++;
     }
 
-    public void moverIzquierda() {
-        celda = this.celda.celdaDeLaIzquierda();
+    private void movermeUnaCeldaALaDerecha(Tablero tablero) {
+        if(!tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
+            this.posicionX++;
+        } else {
+            this.marcarComoMuerto();
+        }
     }
 
-    public void moverArriba() {
-        celda = this.celda.celdaDeArriba();
+    private void marcarComoMuerto() {
+        this.estaVivo = false;
     }
 
-    public void moverAbajo() {
-        celda = this.celda.celdaDeAbajo();
+    private boolean puedoMovermeALaDerecha(Tablero tablero){
+        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY);
     }
 
+    private boolean puedoMovermeALaDerecha(){
+        return true;
+    }
+
+    public boolean estaMuerto() {
+        return !this.estaVivo;
+    }
 }
