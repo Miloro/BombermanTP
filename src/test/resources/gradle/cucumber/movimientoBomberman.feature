@@ -29,3 +29,9 @@ Feature: movimientoBomberman
     Given El tablero tiene un enemigo en (5,3)
     When Bomberman suelta una bomba donde se encuentra
     Then El enemigo ya no se encuentra en la posicion (5,3)
+
+  Scenario: Bomberman suelta una bomba y hay un muro de acero en la onda expansiva
+    Given Bomberman se crea en la posicion cuatro cuatro en un tablero de 10 por 10
+    Given El tablero tiene un muro de acero en (5,3)
+    When Bomberman suelta una bomba donde se encuentra
+    Then El muro sigue estando en (5,3)

@@ -10,7 +10,7 @@ public class Celda {
     }
 
     public void setearMuro() {
-        this.muro = new Muro();
+        this.muro = new MuroDeMelamina();
     }
 
     public boolean tieneMuro(){
@@ -28,4 +28,11 @@ public class Celda {
     }
 
     public void quitarEnemigo() {this.enemigo=null;}
+
+    public void setearMuroDeAcero() { this.muro= new MuroDeAcero();}
+
+    public boolean tieneMuroDeAcero() {
+        if(this.muro != null) return this.muro.esDeAcero();
+        return false;
+    }
 }

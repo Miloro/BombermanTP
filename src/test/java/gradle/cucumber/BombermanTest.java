@@ -49,6 +49,11 @@ public class BombermanTest {
         this.tablero.setearEnemigoEnCelda(positionX, positionY);
     }
 
+    @Given("^El tablero tiene un muro de acero en \\((\\d+),(\\d+)\\)$")
+    public void elTableroTieneUnMuroDeAceroEn(Integer posicionX, Integer posicionY) {
+        this.tablero.setearMuroDeAceroEnCelda(posicionX, posicionY);
+    }
+
     @When("^Bomberman se mueve una celda a la derecha")
     public void bombermanSeMueveALaDerecha() throws Throwable {
         bomberman.moverUnaCeldaALaDerecha();
@@ -104,4 +109,8 @@ public class BombermanTest {
         assertThat(tablero.tieneMuroEnCelda(arg0,arg1)).isEqualTo(false);
     }
 
+    @Then("^El muro sigue estando en \\((\\d+),(\\d+)\\)$")
+    public void elMuroSigueEstandoEn(Integer posicionX, Integer posicionY) {
+        assertThat(tablero.tieneMuroDeAceroEnCelda(posicionX, posicionY)).isEqualTo(true);
+    }
 }

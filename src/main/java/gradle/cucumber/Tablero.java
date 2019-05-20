@@ -99,11 +99,16 @@ public class Tablero {
         celda.quitarEnemigo();
     }
 
+    public void setearMuroDeAceroEnCelda(Integer posicionX, Integer posicionY) {
+        this.dameLaCelda(posicionX, posicionY).setearMuroDeAcero();
+    }
 
-    public boolean tieneMuroEnCelda(int posicionX, int posicionY) {
+
+    public boolean tieneMuroEnCelda(Integer posicionX, Integer posicionY) {
         return this.dameLaCelda(posicionX,posicionY).tieneMuro();
     }
 
-    public void quitarEnemigosEnRadio(int i, Integer posicionX, Integer posicionY) {
+    public boolean tieneMuroDeAceroEnCelda(Integer posicionX, Integer posicionY) {
+        return this.dameLaCelda(posicionX, posicionY).tieneMuroDeAcero();
     }
 }
