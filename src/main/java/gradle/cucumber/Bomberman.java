@@ -28,6 +28,7 @@ public class Bomberman {
         return posicionY;
     }
 
+    //No contempla que haya dos muros seguidos.
     public void moverUnaCeldaALaDerecha(Tablero tablero) {
         if(this.puedoMovermeALaDerecha(tablero)){
             this.movermeUnaCeldaALaDerecha(tablero);
@@ -45,10 +46,18 @@ public class Bomberman {
     }
 
     private void movermeUnaCeldaALaDerecha(Tablero tablero) {
-        if(!tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
-            this.posicionX++;
-        } else {
+        if(tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
             this.marcarComoMuerto();
+        } else {
+            this.moverALaDerechaSegunTipoDeCelda(tablero);
+        }
+    }
+
+    private void moverALaDerechaSegunTipoDeCelda(Tablero tablero) {
+        if (!tablero.celdaALaDerechaEsCeldaConMuro(this.posicionX, this.posicionY)){
+            this.posicionX++;
+        }else{
+            this.posicionX+=2;
         }
     }
 
@@ -57,7 +66,10 @@ public class Bomberman {
     }
 
     private boolean puedoMovermeALaDerecha(Tablero tablero){
-        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY);
+        if(this.posicionX == tablero.getCantidadDeColumnas())return false;
+        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY) ||
+                (tablero.celdaALaDerechaEsCeldaConMuro(this.posicionX, this.posicionY) && this.poder.puedoSaltarMuro());
+
     }
 
     private boolean puedoMovermeALaDerecha(){
@@ -73,7 +85,7 @@ public class Bomberman {
 
     }
 
-    public void recibirHabilidad(PoderLanzaBomba poderLanzaBomba){
+    public void recibirHabilidad(Poder poderLanzaBomba){
         this.poder = poderLanzaBomba;
     }
 
