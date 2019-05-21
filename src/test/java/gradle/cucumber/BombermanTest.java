@@ -14,6 +14,12 @@ public class BombermanTest {
         bomberman = new Bomberman();
     }
 
+    @Given("^Bomberman se crea en la posicion \\((\\d+),(\\d+)\\) en un tablero de (\\d+) por (\\d+)$")
+    public void bombermanSeCreaEnLaPosicionEnUnTableroDePor(int arg0, int arg1, int arg2, int arg3) {
+        bomberman= new Bomberman(arg0, arg1);
+        tablero= new Tablero(arg2, arg3);
+    }
+
     @Given("^Un muro se encuentra en la posicion uno cero")
     public void seCreaUnMuro() throws Throwable {
         tablero = new Tablero(2, 2);
@@ -30,6 +36,12 @@ public class BombermanTest {
     public void bombermanSeCreaEnLaPosicionCuatroCuatroEnUnTableroDePor(int arg0, int arg1) {
         tablero= new Tablero(arg0, arg1);
         bomberman= new Bomberman(4,4);
+    }
+
+    @Given("^ProtoMax Jr\\. se encuentra en la posicion \\((\\d+),(\\d+)\\)$")
+    public void protomaxJrSeEncuentraEnLaPosicion(int arg0, int arg1) {
+        this.tablero.ponerUnProtoMaxJrEnCelda(arg0, arg1);
+
     }
 
     @Given("^El tablero tiene muros en \\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)\\((\\d+),(\\d+)\\)$")
@@ -54,6 +66,15 @@ public class BombermanTest {
         this.tablero.setearMuroDeAceroEnCelda(posicionX, posicionY);
     }
 
+    @Given ("^Bagulaa se encuentra en la posicion \\((\\d+),(\\d+)\\)$")
+    public void bagulaSeEncuentraEnLaPosicion(Integer posicionX, Integer posicionY){
+        this.tablero.setearBagulaaEnCelda(posicionX,posicionY);
+    }
+    @Given("^El tablero tiene un muro de melamina en \\((\\d+),(\\d+)\\)$")
+    public void elTableroTieneUnMuroDeMelaminaEn(Integer posicionX, Integer posicionY){
+        this.tablero.setearMuroEnCelda(posicionX,posicionY);
+    }
+
     @When("^Bomberman se mueve una celda a la derecha")
     public void bombermanSeMueveALaDerecha() throws Throwable {
         bomberman.moverUnaCeldaALaDerecha();
@@ -67,6 +88,13 @@ public class BombermanTest {
     @When("^Bomberman suelta una bomba donde se encuentra$")
     public void bombermanSueltaUnaBombaDondeSeEncuentra() {
         bomberman.sueltaUnaBomba(tablero);
+    }
+
+    @When("^Bomberman se mueve en el tablero (\\d+) celdas a la derecha$")
+    public void bombermanSeMueveEnElTableroCeldasALaDerecha(int cantidadDeCeldas) {
+        for( int i=0; i<cantidadDeCeldas; i++ ){
+            bomberman.moverUnaCeldaALaDerecha(tablero);
+        }
     }
 
     @Then("^Bomberman se debe encontrar en la posicion uno cero")
@@ -112,5 +140,20 @@ public class BombermanTest {
     @Then("^El muro sigue estando en \\((\\d+),(\\d+)\\)$")
     public void elMuroSigueEstandoEn(Integer posicionX, Integer posicionY) {
         assertThat(tablero.tieneMuroDeAceroEnCelda(posicionX, posicionY)).isEqualTo(true);
+    }
+
+    @Then( "^Bomberman tiene superpoder para lanzar bombas$")
+    public void bombermanTieneSuperPoderParaLanzarBombas(){
+        assertThat(bomberman.tieneHabilidadParaLanzarBomba()).isTrue();
+    }
+    @Then ("^Rompio el muro de la posicion \\((\\d+),(\\d+)\\)$")
+    public void rompioElMuroDeLaPosicion(Integer posicionX, Integer posicionY){
+        assertThat(tablero.tieneMuroEnCelda(posicionX,posicionY)).isFalse();
+    }
+
+    @Then("^Bomberman se debe encontrar en la posicion \\((\\d+),(\\d+)\\)$")
+    public void bombermanSeDebeEncontrarEnLaPosicion(int arg0, int arg1) {
+        assertThat(bomberman.getPosicionX()).isEqualTo(7);
+        assertThat(bomberman.getPosicionY()).isEqualTo(0);
     }
 }

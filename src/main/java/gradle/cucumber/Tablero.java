@@ -46,57 +46,57 @@ public class Tablero {
     }
 
     // PRO: Quita muro en posicion de Cruz, como en el juego original.
-    public void quitarElementosEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
-        this.quitarElementosXCeldasAlNorte(radio,posicionX, posicionY);
-        this.quitarElementosXCeldasAlSur(radio,posicionX, posicionY);
-        this.quitarElementosXCeldasAlOesteEnRadio(radio,posicionX, posicionY);
-        this.quitarElementosXCeldasAlEsteEnRadio(radio,posicionX, posicionY);
+    public void quitarElementosEnRadio(Integer radio, Integer posicionX, Integer posicionY, Bomberman bomberman) {
+        this.quitarElementosXCeldasAlNorte(radio,posicionX, posicionY, bomberman);
+        this.quitarElementosXCeldasAlSur(radio,posicionX, posicionY,bomberman);
+        this.quitarElementosXCeldasAlOesteEnRadio(radio,posicionX, posicionY,bomberman);
+        this.quitarElementosXCeldasAlEsteEnRadio(radio,posicionX, posicionY,bomberman);
     }
 
-    private void quitarElementosXCeldasAlEsteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlEsteEnRadio(Integer radio, Integer posicionX, Integer posicionY, Bomberman bomberman) {
         Integer hasta= posicionX + radio;
 
         if( hasta > this.cantidadDeFilas-1) hasta = this.cantidadDeFilas - 1; // Me aseguro de no irme del tablero.
 
         for(int i=posicionX; i<=hasta; i++){
-            this.quitarElementosDeLaCelda(i,posicionY);
+            this.quitarElementosDeLaCelda(i,posicionY, bomberman);
         }
     }
 
-    private void quitarElementosXCeldasAlOesteEnRadio(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlOesteEnRadio(Integer radio, Integer posicionX, Integer posicionY, Bomberman bomberman) {
         Integer hasta= posicionX - radio;
 
         if( hasta < 0) hasta = 0; // Me aseguro de no irme del tablero.
 
         for(int i=posicionX; i>=hasta; i--){
-            this.quitarElementosDeLaCelda(i,posicionY);
+            this.quitarElementosDeLaCelda(i,posicionY, bomberman);
         }
     }
 
-    private void quitarElementosXCeldasAlSur(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlSur(Integer radio, Integer posicionX, Integer posicionY,Bomberman bomberman) {
         Integer hasta= posicionY + radio;
 
         if( hasta > this.cantidadDeFilas-1) hasta = this.cantidadDeFilas - 1; // Me aseguro de no irme del tablero.
 
         for(int i=posicionY; i<=hasta; i++){
-            this.quitarElementosDeLaCelda(posicionX,i);
+            this.quitarElementosDeLaCelda(posicionX,i, bomberman);
         }
     }
 
-    private void quitarElementosXCeldasAlNorte(Integer radio, Integer posicionX, Integer posicionY) {
+    private void quitarElementosXCeldasAlNorte(Integer radio, Integer posicionX, Integer posicionY,Bomberman bomberman) {
         Integer hasta= posicionY - radio;
 
         if( hasta < 0) hasta = 0; // Me aseguro de no irme del tablero.
 
         for(int i=posicionY; i>=hasta; i--){
-            this.quitarElementosDeLaCelda(posicionX,i);
+            this.quitarElementosDeLaCelda(posicionX,i, bomberman);
         }
     }
 
-    private void quitarElementosDeLaCelda(Integer posicionX, Integer posicionY){
+    private void quitarElementosDeLaCelda(Integer posicionX, Integer posicionY, Bomberman bomberman){
         Celda celda= this.dameLaCelda(posicionX,posicionY);
         celda.quitarMuroDeMelamina();
-        celda.quitarEnemigo();
+        celda.quitarEnemigo(bomberman);
     }
 
     public void setearMuroDeAceroEnCelda(Integer posicionX, Integer posicionY) {
@@ -111,4 +111,24 @@ public class Tablero {
     public boolean tieneMuroDeAceroEnCelda(Integer posicionX, Integer posicionY) {
         return this.dameLaCelda(posicionX, posicionY).tieneMuroDeAcero();
     }
+
+    public void setearBagulaaEnCelda(Integer posicionX, Integer posicionY) {
+        this.dameLaCelda(posicionX,posicionY).setearBagulaa();
+    }
+
+    public Integer getCantidadDeFilas() {
+        return this.cantidadDeFilas;
+    }
+
+    public Integer getCantidadDeColumnas() { return this.cantidadDeColumnas; }
+
+    public void ponerUnProtoMaxJrEnCelda(int arg0, int arg1) {
+        this.dameLaCelda(arg0,arg1).ponerUnProtoMaxJr();
+    }
+
+    public boolean celdaALaDerechaEsCeldaConMuro(Integer posicionX, Integer posicionY) {
+        return this.dameLaCelda(posicionX+1,posicionY).tieneMuro();
+    }
+
+
 }

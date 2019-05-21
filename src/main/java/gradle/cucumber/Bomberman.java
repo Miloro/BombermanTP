@@ -4,17 +4,20 @@ public class Bomberman {
     private Integer posicionX;
     private Integer posicionY;
     private boolean estaVivo;
+    private Poder poder;
 
     public Bomberman(){
         this.posicionX = 0;
         this.posicionY = 0;
         this.estaVivo = true;
+        this.poder = new PoderNormal();
     }
 
     public Bomberman(Integer posicionX, Integer posicionY){
         this.posicionX=posicionX;
         this.posicionY=posicionY;
         this.estaVivo= true;
+        this.poder = new PoderNormal();
     }
 
     public Integer getPosicionX() {
@@ -25,6 +28,7 @@ public class Bomberman {
         return posicionY;
     }
 
+    //No contempla que haya dos muros seguidos.
     public void moverUnaCeldaALaDerecha(Tablero tablero) {
         if(this.puedoMovermeALaDerecha(tablero)){
             this.movermeUnaCeldaALaDerecha(tablero);
@@ -42,10 +46,18 @@ public class Bomberman {
     }
 
     private void movermeUnaCeldaALaDerecha(Tablero tablero) {
-        if(!tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
-            this.posicionX++;
-        } else {
+        if(tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
             this.marcarComoMuerto();
+        } else {
+            this.moverALaDerechaSegunTipoDeCelda(tablero);
+        }
+    }
+
+    private void moverALaDerechaSegunTipoDeCelda(Tablero tablero) {
+        if (!tablero.celdaALaDerechaEsCeldaConMuro(this.posicionX, this.posicionY)){
+            this.posicionX++;
+        }else{
+            this.posicionX+=2;
         }
     }
 
@@ -54,7 +66,10 @@ public class Bomberman {
     }
 
     private boolean puedoMovermeALaDerecha(Tablero tablero){
-        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY);
+        if(this.posicionX == tablero.getCantidadDeColumnas())return false;
+        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY) ||
+                (tablero.celdaALaDerechaEsCeldaConMuro(this.posicionX, this.posicionY) && this.poder.puedoSaltarMuro());
+
     }
 
     private boolean puedoMovermeALaDerecha(){
@@ -66,6 +81,15 @@ public class Bomberman {
     }
 
     public void sueltaUnaBomba(Tablero tablero) {
-        new Bomba().estallarEn(tablero, this.posicionX, this.posicionY);
+        this.poder.sueltaUnaBomba(tablero, this.posicionX, this.posicionY,this);
+
+    }
+
+    public void recibirHabilidad(Poder poderLanzaBomba){
+        this.poder = poderLanzaBomba;
+    }
+
+    public boolean tieneHabilidadParaLanzarBomba() {
+        return this.poder.soyPoderParaLanzarBomba();
     }
 }

@@ -35,3 +35,31 @@ Feature: movimientoBomberman
     Given El tablero tiene un muro de acero en (5,3)
     When Bomberman suelta una bomba donde se encuentra
     Then El muro sigue estando en (5,3)
+
+  Scenario: Bomberman suelta bomba y esta alcanza a 'Bagulaa' al morir, este suelta un poder 'lanzar bombas' entonces bomberman puede lanzar bombas. Ahora en lugar de soltar la bomba esta se lanza recorriendo 'n' casilleros y detonando luego de 'm' ticks.
+    Given Bomberman se crea en la posicion cuatro cuatro en un tablero de 10 por 10
+    Given Bagulaa se encuentra en la posicion (4,5)
+    Given El tablero tiene un muro de melamina en (6,1)
+    When Bomberman suelta una bomba donde se encuentra
+    When Bomberman suelta una bomba donde se encuentra
+    Then Bomberman tiene superpoder para lanzar bombas
+    Then Rompio el muro de la posicion (6,1)
+
+
+  Scenario: Bomberman suelta bomba y esta alcanza a 'Proto Max Jr.' al morir, este suelta un poder que le permite a bomberman saltar todo tipo de pared.
+    Given Bomberman se crea en la posicion (0,0) en un tablero de 10 por 10
+    Given ProtoMax Jr. se encuentra en la posicion (1,0)
+    Given El tablero tiene un muro de melamina en (4,0)
+    Given El tablero tiene un muro de acero en (6,0)
+    When Bomberman suelta una bomba donde se encuentra
+    When Bomberman se mueve en el tablero 5 celdas a la derecha
+    Then Bomberman se debe encontrar en la posicion (7,0)
+
+
+
+
+
+
+
+
+
