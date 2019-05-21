@@ -119,4 +119,16 @@ public class Tablero {
     public Integer getCantidadDeFilas() {
         return this.cantidadDeFilas;
     }
+
+    public Integer getCantidadDeColumnas() { return this.cantidadDeColumnas; }
+
+    public void ponerUnProtoMaxJrEnCelda(int arg0, int arg1) {
+        this.dameLaCelda(arg0,arg1).ponerUnProtoMaxJr();
+    }
+
+    public boolean celdaALaDerechaEsCeldaConMuro(Integer posicionX, Integer posicionY) {
+        return this.dameLaCelda(posicionX+1,posicionY).tieneMuro();
+    }
+
+
 }

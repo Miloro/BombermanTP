@@ -11,4 +11,9 @@ public class PoderNormal implements Poder {
     public boolean soyPoderParaLanzarBomba() {
         return false;
     }
+
+    @Override
+    public boolean puedoSaltarMuro() {
+        return false;
+    }
 }
