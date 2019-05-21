@@ -4,17 +4,20 @@ public class Bomberman {
     private Integer posicionX;
     private Integer posicionY;
     private boolean estaVivo;
+    private Poder poder;
 
     public Bomberman(){
         this.posicionX = 0;
         this.posicionY = 0;
         this.estaVivo = true;
+        this.poder = new PoderNormal();
     }
 
     public Bomberman(Integer posicionX, Integer posicionY){
         this.posicionX=posicionX;
         this.posicionY=posicionY;
         this.estaVivo= true;
+        this.poder = new PoderNormal();
     }
 
     public Integer getPosicionX() {
@@ -66,6 +69,15 @@ public class Bomberman {
     }
 
     public void sueltaUnaBomba(Tablero tablero) {
-        new Bomba().estallarEn(tablero, this.posicionX, this.posicionY);
+        this.poder.sueltaUnaBomba(tablero, this.posicionX, this.posicionY,this);
+
+    }
+
+    public void recibirHabilidad(PoderLanzaBomba poderLanzaBomba){
+        this.poder = poderLanzaBomba;
+    }
+
+    public boolean tieneHabilidadParaLanzarBomba() {
+        return this.poder.soyPoderParaLanzarBomba();
     }
 }
