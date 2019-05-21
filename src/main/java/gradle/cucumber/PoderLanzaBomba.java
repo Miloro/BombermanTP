@@ -15,4 +15,9 @@ public class PoderLanzaBomba implements Poder {
     public boolean soyPoderParaLanzarBomba() {
         return true;
     }
+
+    @Override
+    public boolean puedoSaltarMuro() {
+        return false;
+    }
 }
