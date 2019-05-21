@@ -1,36 +1,45 @@
 package gradle.cucumber;
 
 public class Celda {
-    private final Integer posicionX;
-    private final Integer posicionY;
+    private Muro muro;
+    private Enemigo enemigo;
 
-    public Celda(Integer x, Integer y){
-        posicionX = x;
-        posicionY = y;
+
+    public Celda(){
+        this.muro = null;
     }
 
-
-    public Integer posicionX() {
-        return posicionX;
+    public void setearMuro() {
+        this.muro = new MuroDeMelamina();
     }
 
-    public Integer posicionY() {
-        return posicionY;
+    public boolean tieneMuro(){
+        return this.muro != null;
     }
 
-    public Celda celdaDeLaDerecha() {
-        return new Celda(this.posicionX + 1,this.posicionY);
+    public void setearEnemigo() { this.enemigo = new Enemigo(); }
+
+    public boolean tieneEnemigo() {return this.enemigo != null; }
+
+    public void quitarMuroDeMelamina() {
+        if(this.muro != null &&this.muro.esDeMelamina()){
+            this.muro=null;
+        }
     }
 
-    public Celda celdaDeArriba() {
-        return new Celda(this.posicionX ,this.posicionY + 1);
+    public void quitarEnemigo(Bomberman bomberman) {
+        if(this.enemigo!=null) this.enemigo.procesarMuerte(bomberman);
+        this.enemigo=null;
     }
 
-    public Celda celdaDeLaIzquierda() {
-        return new Celda(this.posicionX - 1 ,this.posicionY);
+    public void setearMuroDeAcero() { this.muro= new MuroDeAcero();}
+
+    public boolean tieneMuroDeAcero() {
+        if(this.muro != null) return this.muro.esDeAcero();
+        return false;
     }
 
-    public Celda celdaDeAbajo() {
-        return new Celda(this.posicionX, this.posicionY - 1);
+    public void setearBagulaa() {
+        this.enemigo = new Bagulaa();
     }
 }
