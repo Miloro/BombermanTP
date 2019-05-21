@@ -1,42 +1,71 @@
 package gradle.cucumber;
 
 public class Bomberman {
-    private Celda celda;
+    private Integer posicionX;
+    private Integer posicionY;
+    private boolean estaVivo;
 
-    public Bomberman(Celda celda){
-        celda = celda;
+    public Bomberman(){
+        this.posicionX = 0;
+        this.posicionY = 0;
+        this.estaVivo = true;
     }
 
-    public Celda celda() {
-        return celda;
+    public Bomberman(Integer posicionX, Integer posicionY){
+        this.posicionX=posicionX;
+        this.posicionY=posicionY;
+        this.estaVivo= true;
     }
 
-    public void setCelda(Celda celda) {
-        this.celda = celda;
+    public Integer getPosicionX() {
+        return posicionX;
     }
 
-    public Integer posicionX() {
-        return this.celda.posicionX();
+    public Integer getPosicionY() {
+        return posicionY;
     }
 
-    public Integer posicionY() {
-        return this.celda.posicionY();
+    public void moverUnaCeldaALaDerecha(Tablero tablero) {
+        if(this.puedoMovermeALaDerecha(tablero)){
+            this.movermeUnaCeldaALaDerecha(tablero);
+        }
     }
 
-    public void moverDerecha() {
-        celda = this.celda.celdaDeLaDerecha();
+    public void moverUnaCeldaALaDerecha() {
+        if(this.puedoMovermeALaDerecha()){
+            this.movermeUnaCeldaALaDerecha();
+        }
     }
 
-    public void moverIzquierda() {
-        celda = this.celda.celdaDeLaIzquierda();
+    private void movermeUnaCeldaALaDerecha(){
+        this.posicionX ++;
     }
 
-    public void moverArriba() {
-        celda = this.celda.celdaDeArriba();
+    private void movermeUnaCeldaALaDerecha(Tablero tablero) {
+        if(!tablero.celdaALaDerechaEsCeldaConEnemigo(this.posicionX, this.posicionY)){
+            this.posicionX++;
+        } else {
+            this.marcarComoMuerto();
+        }
     }
 
-    public void moverAbajo() {
-        celda = this.celda.celdaDeAbajo();
+    private void marcarComoMuerto() {
+        this.estaVivo = false;
     }
 
+    private boolean puedoMovermeALaDerecha(Tablero tablero){
+        return tablero.celdaALaDerechaEsCeldaVacia(this.posicionX,this.posicionY);
+    }
+
+    private boolean puedoMovermeALaDerecha(){
+        return true;
+    }
+
+    public boolean estaMuerto() {
+        return !this.estaVivo;
+    }
+
+    public void sueltaUnaBomba(Tablero tablero) {
+        new Bomba().estallarEn(tablero, this.posicionX, this.posicionY);
+    }
 }
