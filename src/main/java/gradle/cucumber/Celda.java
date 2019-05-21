@@ -27,12 +27,19 @@ public class Celda {
         }
     }
 
-    public void quitarEnemigo() {this.enemigo=null;}
+    public void quitarEnemigo(Bomberman bomberman) {
+        if(this.enemigo!=null) this.enemigo.procesarMuerte(bomberman);
+        this.enemigo=null;
+    }
 
     public void setearMuroDeAcero() { this.muro= new MuroDeAcero();}
 
     public boolean tieneMuroDeAcero() {
         if(this.muro != null) return this.muro.esDeAcero();
         return false;
+    }
+
+    public void setearBagulaa() {
+        this.enemigo = new Bagulaa();
     }
 }
