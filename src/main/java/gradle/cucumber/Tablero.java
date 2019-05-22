@@ -131,4 +131,7 @@ public class Tablero {
     }
 
 
+    public void ponerUnProtoMaxUnitsEnCelda(int arg0, int arg1) {
+        this.dameLaCelda(arg0,arg1).ponerUnProtoMaxUnits();
+    }
 }

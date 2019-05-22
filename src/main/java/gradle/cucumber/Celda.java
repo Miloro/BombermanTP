@@ -43,5 +43,7 @@ public class Celda {
         this.enemigo = new Bagulaa();
     }
 
-    public void ponerUnProtoMaxJr() { this.enemigo = new ProtoMaxJr();}
+    public void ponerUnProtoMaxJr() { this.enemigo = new ProtoMaxJr(); }
+
+    public void ponerUnProtoMaxUnits() {this.enemigo = new ProtoMaxUnits(); }
 }
