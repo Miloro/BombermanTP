@@ -75,6 +75,12 @@ public class BombermanTest {
         this.tablero.setearMuroEnCelda(posicionX,posicionY);
     }
 
+    @Given("^Proto-Max Units se encuentra en la posicion \\((\\d+),(\\d+)\\)$")
+    public void protomaxUnitsSeEncuentraEnLaPosicion(int arg0, int arg1) {
+        this.tablero.ponerUnProtoMaxUnitsEnCelda(arg0, arg1);
+
+    }
+
     @When("^Bomberman se mueve una celda a la derecha")
     public void bombermanSeMueveALaDerecha() throws Throwable {
         bomberman.moverUnaCeldaALaDerecha();
@@ -153,7 +159,7 @@ public class BombermanTest {
 
     @Then("^Bomberman se debe encontrar en la posicion \\((\\d+),(\\d+)\\)$")
     public void bombermanSeDebeEncontrarEnLaPosicion(int arg0, int arg1) {
-        assertThat(bomberman.getPosicionX()).isEqualTo(7);
-        assertThat(bomberman.getPosicionY()).isEqualTo(0);
+        assertThat(bomberman.getPosicionX()).isEqualTo(arg0);
+        assertThat(bomberman.getPosicionY()).isEqualTo(arg1);
     }
 }
